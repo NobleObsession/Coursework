@@ -2,8 +2,7 @@
 
 #include "Dijkstra.h"
 
-#include "DataStorage_with_utilities.h"
-#include "profile.h"
+#include "include/DataStorage_with_utilities.h"
 
 using namespace std;
 

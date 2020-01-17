@@ -2,9 +2,8 @@
 #include <cmath>
 #include <memory>
 
-#include "DataStorage_with_utilities.h"
-#include "Stop_Bus_Parsers.h"
-#include "profile.h"
+#include "utility/DataStorage_with_utilities.h"
+#include "utility/Stop_Bus_Parsers.h"
 
 using namespace std;
 

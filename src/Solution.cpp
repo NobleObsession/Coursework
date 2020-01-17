@@ -94,7 +94,7 @@ int main(){
 	Json::Document doc = Json::Load(cin);
 
 	/*uncomment to run with input file
-	ifstream fin("transport-input.txt");
+	ifstream fin("transport_input.txt");
 	Json::Document doc = Json::Load(fin);
 	fin.close();*/
 
