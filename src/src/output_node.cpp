@@ -4,7 +4,7 @@
 #include <memory>
 #include <unordered_map>
 
-#include "include/output_node.h"
+#include "../include/output_node.h"
 
 using namespace std;
 

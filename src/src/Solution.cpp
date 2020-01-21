@@ -7,12 +7,12 @@
 #include <memory>
 #include <fstream>
 
-#include "include/json.h"
-#include "include/Dijkstra.h"
-#include "include/Stop_Bus_Parsers.h"
-#include "include/Cache.h"
-#include "include/DataStorage_with_utilities.h"
-#include "include/output_node.h"
+#include "../include/json.h"
+#include "../include/Dijkstra.h"
+#include "../include/Stop_Bus_Parsers.h"
+#include "../include/Cache.h"
+#include "../include/DataStorage_with_utilities.h"
+#include "../include/output_node.h"
 
 
 using namespace std;
@@ -94,11 +94,12 @@ int main(){
 	Json::Document doc = Json::Load(cin);
 
 	/*uncomment to run with input file
-	ifstream fin("transport_input.txt");
+	ifstream fin("transport-input.json");
 	Json::Document doc = Json::Load(fin);
 	fin.close();*/
 
 	map<string, Json::Node> main_map = doc.GetRoot().AsMap();
+	cout << main_map.size() << endl;
 
 	map<string, Json::Node> settings = main_map["routing_settings"].AsMap();
 
