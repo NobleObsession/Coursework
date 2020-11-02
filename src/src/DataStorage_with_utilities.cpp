@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void AddToDatabase::AddStop(const Stop& stop, DataStorage& ds){
+void AddStop(const Stop& stop, DataStorage& ds){
 	auto found_stop = ds.stops_.find(stop.GetStopName());
 	if(found_stop != ds.stops_.end()){
 		found_stop->second.SetCoordinates(stop.GetCoordinates());
@@ -17,7 +17,7 @@ void AddToDatabase::AddStop(const Stop& stop, DataStorage& ds){
 	}
 }
 
-void AddToDatabase::AddBus(const Bus& bus, DataStorage& ds){
+void AddBus(const Bus& bus, DataStorage& ds){
 	ds.buses_[bus.GetBusName()] = bus;
 	vector<string>stops = bus.GetStops();
 	for(auto& s:stops){
@@ -25,7 +25,7 @@ void AddToDatabase::AddBus(const Bus& bus, DataStorage& ds){
 	}
 }
 
-void AddToDatabase::AddNotExistedStops(const vector<string>& stops, const string& route, DataStorage& ds){
+void AddNotExistedStops(const vector<string>& stops, const string& route, DataStorage& ds){
 	for(auto stop:stops){
 		if(ds.stops_.count(stop) == 0){
 			Stop empty_stop({stop, 0, 0});
@@ -33,6 +33,23 @@ void AddToDatabase::AddNotExistedStops(const vector<string>& stops, const string
 			ds.stops_[stop].AddBus(route);
 		}
 	}
+}
+
+void CreateDatabase(const map<string, Json::Node>& main_map, DataStorage& storage){
+
+    for(auto& req: main_map.at("base_requests").AsArray()){
+        map<string, Json::Node> map_with_requests = req.AsMap();
+        if(map_with_requests.at("type").AsString() == "Stop"){
+
+            Stop s = ParseStop(map_with_requests);
+            AddStop(s, storage);
+        }else if(map_with_requests.at("type").AsString() == "Bus"){
+
+            Bus b = ParseBus(map_with_requests);
+            AddBus(b, storage);
+            AddNotExistedStops(b.GetStops(), b.GetBusName(), storage);
+        }
+    }
 }
 
 void FindBus(const string& name, UnordMapNode& output_node, const DataStorage& ds, ComputeLengthNode& len_node){

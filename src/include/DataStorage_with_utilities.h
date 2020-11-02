@@ -6,27 +6,18 @@
 #include "Edge.h"
 #include "Stop_Bus_Parsers.h"
 #include "output_node.h"
+#include "../include/json.h"
 
 struct DataStorage;
 
-class AddToDatabase{
-	/* This class is intended to manage the database (add items, replace items).
-	 * By condition input stream contains queries in random order. That's why it's possible,
-	 * that data about stops in parsed bus route goes first, when data about particular stops hasn't already exist.
-	 * To deal with it, there is special method - AddNotExistedStops, which guarantees,
-	 * that stops of parsed route will always exist in database, even specific data will be added later.
-	 *
-	 * By condition it's guaranteed, that all parsed data about stops and buses is correct,
-	 * and there is no need in additional checks. Furthermore, it's guaranteed, that all needed data will be provided,
-	 * without missing pieces (all individual stops correspond to all stops of routes etc.)
-	 */
+void AddBus(const Bus& route, DataStorage& ds);
 
+void AddNotExistedStops(const std::vector<std::string>& stops, const std::string& bus_name, DataStorage& ds);
 
-public:
-	void AddStop(const Stop& stop, DataStorage& ds);
-	void AddBus(const Bus& route, DataStorage& ds);
-	void AddNotExistedStops(const std::vector<std::string>& stops, const std::string& bus_name, DataStorage& ds);
-};
+void AddStop(const Stop& stop, DataStorage& ds);
+
+void CreateDatabase(const std::map<std::string, Json::Node>& main_map,
+                    DataStorage& storage);
 
 struct ComputedRouteParams{
 	double curvature;

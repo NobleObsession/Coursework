@@ -17,25 +17,6 @@
 
 using namespace std;
 
-void CreateDatabase(const map<string, Json::Node>& main_map, DataStorage& storage){
-
-	AddToDatabase add_to_db;
-
-	for(auto& req: main_map.at("base_requests").AsArray()){
-	    map<string, Json::Node> map_with_requests = req.AsMap();
-		if(map_with_requests.at("type").AsString() == "Stop"){
-
-			Stop s = ParseStop(map_with_requests);
-			add_to_db.AddStop(s, storage);
-		}else if(map_with_requests.at("type").AsString() == "Bus"){
-
-			Bus b = ParseBus(map_with_requests);
-			add_to_db.AddBus(b, storage);
-			add_to_db.AddNotExistedStops(b.GetStops(), b.GetBusName(), storage);
-		}
-	}
-}
-
 shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_map, DataStorage& storage,
 		const NumericNamesManager& names_manager, double wait_time, const Graph& initial_graph){
 
@@ -99,7 +80,6 @@ int main(){
 	fin.close();*/
 
 	map<string, Json::Node> main_map = doc.GetRoot().AsMap();
-	cout << main_map.size() << endl;
 
 	map<string, Json::Node> settings = main_map["routing_settings"].AsMap();
 
