@@ -1,18 +1,12 @@
 #pragma once
 
-#include <map>
-#include <unordered_map>
+#include "../include/Database.h"
 
-
-#include "../include/json.h"
-
-class Render{
-public:
-    Render(const std::map<std::string, Json::Node>& render_settings):
-        settings_(render_settings)  {}
-    void ConvertCoordinates();
-
-private:
-    std::map<string, Json::Node> settings_;
+struct MinMaxCorrdinates{
+    double min_lat = 0;
+    double max_lat = 0;
+    double min_long = 0;
+    double max_long = 0;
 };
 
+MinMaxCorrdinates FindMinMaxCoordinatesOfStops(const StopMap& map);
