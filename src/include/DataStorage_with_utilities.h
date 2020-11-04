@@ -4,20 +4,10 @@
 #include <unordered_map>
 
 #include "Edge.h"
-#include "Stop_Bus_Parsers.h"
+#include "Stop_Bus.h"
 #include "output_node.h"
 #include "../include/json.h"
-
-struct DataStorage;
-
-void AddBus(const Bus& route, DataStorage& ds);
-
-void AddNotExistedStops(const std::vector<std::string>& stops, const std::string& bus_name, DataStorage& ds);
-
-void AddStop(const Stop& stop, DataStorage& ds);
-
-void CreateDatabase(const std::map<std::string, Json::Node>& main_map,
-                    DataStorage& storage);
+#include "../include/Database.h"
 
 struct ComputedRouteParams{
 	double curvature;
@@ -26,19 +16,19 @@ struct ComputedRouteParams{
 
 class ComputeLengthNode{
 public:
-	ComputedRouteParams ComputeRouteLen(const std::string& bus_name, const DataStorage& ds);
+    ComputedRouteParams ComputeRouteLen(const std::string& bus_name, const Database& ds);
 private:
-	double ComputeLen(const Coord& lhs, const Coord& rhs);
+	double ComputeLen(const RadCoordinates& lhs, const RadCoordinates& rhs);
 	const int earth_rad = 6371000;
 	std::unordered_map<std::string, ComputedRouteParams>route_cache;
 };
 
-void FindBus(const std::string& bus_name, UnordMapNode& map_node, const DataStorage& ds, ComputeLengthNode& len_node);
-void FindStop(const std::string& stop_name, UnordMapNode& map_node, const DataStorage& ds);
+void FindBus(const std::string& bus_name, UnordMapNode& map_node, const Database& ds, ComputeLengthNode& len_node);
+void FindStop(const std::string& stop_name, UnordMapNode& map_node, const Database& ds);
 
 class NumericNamesManager{
 public:
-	void SetNumericNamesOfStops(const DataStorage& ds);
+    void SetNumericNamesOfStops(const Database& ds);
 	size_t GetNumericName (const std::string& string_name) const;
 	std::string GetStringName (const size_t numeric_name) const;
 	size_t GetNumNumericNames() const;
@@ -49,12 +39,6 @@ private:
 	std::unordered_map<size_t, std::string> size_t_to_stop_name;
 };
 
+
 std::pair<std::vector<std::vector<Edge>>, size_t> GetAllEdgesWithWeights (double velocity,
-		const DataStorage& ds, NumericNamesManager& num_names);
-
-struct DataStorage{
-	std::unordered_map<std::string, Bus> buses_;
-	std::unordered_map<std::string, Stop>stops_;
-};
-
-
+        const Database& ds, NumericNamesManager& num_names);
