@@ -37,8 +37,16 @@ endif()
 enable_testing()
 add_subdirectory(test)
 
-include_directories(src/include)
+set(SOURCE_MAIN "src/src/Solution.cpp")
+add_executable(Solution ${SOURCE_MAIN})
 
-file(GLOB SOURCES "src/src/*.cpp")
+set(JSON_LIB "src/src/json.cpp")
+add_library(json_lib ${JSON_LIB})
 
-add_executable(Solution ${SOURCES})
+set(DATABASE_LIB "src/src/Database.cpp")
+add_library(database_lib ${DATABASE_LIB})
+
+set(SVG_LIB "src/src/svg_lib.cpp")
+add_library(svg_lib ${SVG_LIB})
+
+target_link_libraries(Solution json_lib database_lib)

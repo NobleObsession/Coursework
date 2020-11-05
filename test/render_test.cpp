@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
-#include "../src/include/json.h"
 
+#include "../src/include/json.h"
 #include "../src/include/Database.h"
 #include "../src/include/render.h"
 
@@ -12,8 +12,9 @@ TEST(Render, FoundMinAndMaxCoordinatesOfStops){
     ifstream fin("queries_for_render_test.json");
     Json::Document doc = Json::Load(fin);
     fin.close();
-/*
-    map<string, Json::Node> main_map = doc.GetRoot().AsMap();
+
+    auto main_map = doc.GetRoot().AsMap();
+
     Database database;
 
     CreateDatabase(main_map, database);
@@ -26,6 +27,6 @@ TEST(Render, FoundMinAndMaxCoordinatesOfStops){
 
     EXPECT_EQ(stops.at("Санаторий Родина").GetCoordinates().longitude,coord.min_long);
     EXPECT_EQ(stops.at("Улица Лизы Чайкиной").GetCoordinates().longitude,coord.max_long);
-*/
+
 }
 }

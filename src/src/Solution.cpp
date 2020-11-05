@@ -8,16 +8,16 @@
 #include <fstream>
 
 #include "../include/json.h"
-#include "../include/Dijkstra.h"
+/*#include "../include/Dijkstra.h"*/
 #include "../include/Stop_Bus.h"
-#include "../include/Cache.h"
+/*#include "../include/Cache.h"
 #include "../include/DataStorage_with_utilities.h"
-#include "../include/output_node.h"
+#include "../include/output_node.h"*/
 #include "../include/Database.h"
 
 
 using namespace std;
-
+/*
 shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_map, Database& storage,
 		const NumericNamesManager& names_manager, double wait_time, const Graph& initial_graph){
 
@@ -67,7 +67,7 @@ shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_ma
 
 void PrintQueries(const shared_ptr<VectorNode> node, ostream& out){
 	node->Output(out);
-}
+}*/
 
 int main(){
 	Json::Document doc = Json::Load(cin);
@@ -86,7 +86,7 @@ int main(){
 
     Database storage;
 	CreateDatabase(main_map, storage);
-
+/*
 	NumericNamesManager num_names_manager;
 	num_names_manager.SetNumericNamesOfStops(storage);
 
@@ -100,7 +100,7 @@ int main(){
 	shared_ptr<VectorNode> resolved_queries = ProcessStatQueries(main_map, storage, num_names_manager, wait_time, initial_graph);
 	PrintQueries(resolved_queries, cout);
 
-	/*uncomment to write output in file
+    uncomment to write output in file
 	ofstream out_file("output.txt");
 	PrintQueries(resolved_queries, out_file);
 	out_file.close();*/
