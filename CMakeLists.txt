@@ -42,5 +42,3 @@ include_directories(src/include)
 file(GLOB SOURCES "src/src/*.cpp")
 
 add_executable(Solution ${SOURCES})
-#set(SOURCE_FILES library.cpp library.h)
-#add_library(Coursework ${SOURCE_FILES})
