@@ -22,11 +22,11 @@ TEST(Render, FoundMinAndMaxCoordinatesOfStops){
     const StopMap& stops = database.stops_;
     MinMaxCorrdinates coord = FindMinMaxCoordinatesOfStops(stops);
 
-    EXPECT_EQ(stops.at("Гостиница Сочи").GetCoordinates().latitude,coord.min_lat);
-    EXPECT_EQ(stops.at("Санаторий Родина").GetCoordinates().latitude,coord.max_lat);
+    EXPECT_EQ(stops.at("Hotel").GetCoordinates().latitude,coord.min_lat);
+    EXPECT_EQ(stops.at("Homeland").GetCoordinates().latitude,coord.max_lat);
 
-    EXPECT_EQ(stops.at("Санаторий Родина").GetCoordinates().longitude,coord.min_long);
-    EXPECT_EQ(stops.at("Улица Лизы Чайкиной").GetCoordinates().longitude,coord.max_long);
+    EXPECT_EQ(stops.at("Homeland").GetCoordinates().longitude,coord.min_long);
+    EXPECT_EQ(stops.at("Seagull").GetCoordinates().longitude,coord.max_long);
 
 }
 }

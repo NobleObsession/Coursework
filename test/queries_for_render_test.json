@@ -36,14 +36,14 @@
             "type": "Bus",
             "name": "14",
             "stops": [
-                "Улица Лизы Чайкиной",
-                "Электросети",
-                "Ривьерский мост",
-                "Гостиница Сочи",
-                "Кубанская улица",
-                "По требованию",
-                "Улица Докучаева",
-                "Улица Лизы Чайкиной"
+                "Seagull",
+                "Electrical grid",
+                "Bridge",
+                "Hotel",
+                "Countryside",
+                "On demand",
+                "Bored",
+                "Seagull"
             ],
             "is_roundtrip": true
         },
@@ -51,10 +51,10 @@
             "type": "Bus",
             "name": "24",
             "stops": [
-                "Улица Докучаева",
-                "Параллельная улица",
-                "Электросети",
-                "Санаторий Родина"
+                "Bored",
+                "Parallel street",
+                "Electrical grid",
+                "Homeland"
             ],
             "is_roundtrip": false
         },
@@ -62,97 +62,97 @@
             "type": "Bus",
             "name": "114",
             "stops": [
-                "Морской вокзал",
-                "Ривьерский мост"
+                "Maritime",
+                "Bridge"
             ],
             "is_roundtrip": false
         },
         {
             "type": "Stop",
-            "name": "Улица Лизы Чайкиной",
+            "name": "Seagull",
             "latitude": 43.590317,
             "longitude": 39.746833,
             "road_distances": {
-                "Электросети": 4300,
-                "Улица Докучаева": 2000
+                "Electrical grid": 4300,
+                "Bored": 2000
             }
         },
         {
             "type": "Stop",
-            "name": "Морской вокзал",
+            "name": "Maritime",
             "latitude": 43.581969,
             "longitude": 39.719848,
             "road_distances": {
-                "Ривьерский мост": 850
+                "Bridge": 850
             }
         },
         {
             "type": "Stop",
-            "name": "Электросети",
+            "name": "Electrical grid",
             "latitude": 43.598701,
             "longitude": 39.730623,
             "road_distances": {
-                "Санаторий Родина": 4500,
-                "Параллельная улица": 1200,
-                "Ривьерский мост": 1900
+                "Motherhood": 4500,
+                "Parallel street": 1200,
+                "Bridge": 1900
             }
         },
         {
             "type": "Stop",
-            "name": "Ривьерский мост",
+            "name": "Bridge",
             "latitude": 43.587795,
             "longitude": 39.716901,
             "road_distances": {
-                "Морской вокзал": 850,
-                "Гостиница Сочи": 1740
+                "Maritime": 850,
+                "Hotel": 1740
             }
         },
         {
             "type": "Stop",
-            "name": "Гостиница Сочи",
+            "name": "Hotel",
             "latitude": 43.578079,
             "longitude": 39.728068,
             "road_distances": {
-                "Кубанская улица": 320
+                "Countryside": 320
             }
         },
         {
             "type": "Stop",
-            "name": "Кубанская улица",
+            "name": "Countryside",
             "latitude": 43.578509,
             "longitude": 39.730959,
             "road_distances": {
-                "По требованию": 370
+                "On demand": 370
             }
         },
         {
             "type": "Stop",
-            "name": "По требованию",
+            "name": "On demand",
             "latitude": 43.579285,
             "longitude": 39.733742,
             "road_distances": {
-                "Улица Докучаева": 600
+                "Bored": 600
             }
         },
         {
             "type": "Stop",
-            "name": "Улица Докучаева",
+            "name": "Bored",
             "latitude": 43.585586,
             "longitude": 39.733879,
             "road_distances": {
-                "Параллельная улица": 1100
+                "Parallel street": 1100
             }
         },
         {
             "type": "Stop",
-            "name": "Параллельная улица",
+            "name": "Parallel street",
             "latitude": 43.590041,
             "longitude": 39.732886,
             "road_distances": {}
         },
         {
             "type": "Stop",
-            "name": "Санаторий Родина",
+            "name": "Homeland",
             "latitude": 43.601202,
             "longitude": 39.715498,
             "road_distances": {}
@@ -167,8 +167,8 @@
         {
             "id": 1086967114,
             "type": "Route",
-            "from": "Морской вокзал",
-            "to": "Параллельная улица"
+            "from": "Maritime",
+            "to": "Parallel street"
         },
         {
             "id": 1218663236,
