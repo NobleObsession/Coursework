@@ -19,9 +19,9 @@ struct RenderSettings{
 
 RenderSettings GetRenderSettings(const std::map<std::string, Json::Node>& main_map);
 
-class Render{
+class CoordinateConvertor{
 public:
-    Render(double width, double height, double padding, MinMaxCoordinates coord);
+    CoordinateConvertor(double width, double height, double padding, MinMaxCoordinates coord);
     double ConvertLongitudeToX(double stop_longitude);
     double ConvertLatitudeToY(double stop_latitude);
 private:

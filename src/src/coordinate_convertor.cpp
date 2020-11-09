@@ -1,4 +1,4 @@
-#include "../include/render.h"
+#include "../include/coordinate_convertor.h"
 #include "../include/Database.h"
 #include "../include/Stop_Bus.h"
 #include "../include/json.h"
@@ -56,7 +56,7 @@ double GetFinalZoom(double width_zoom, double height_zoom){
     return height_zoom;
 }
 
-Render::Render(double width, double height, double padding, MinMaxCoordinates coord):
+CoordinateConvertor::CoordinateConvertor(double width, double height, double padding, MinMaxCoordinates coord):
     width_(width), heigth_(height), padding_(padding), min_max_coord_(coord){
 
     double width_zoom = GetWidthZoomCoef();
@@ -64,7 +64,7 @@ Render::Render(double width, double height, double padding, MinMaxCoordinates co
     zoom_coef_ = GetFinalZoom(width_zoom, height_zoom);
 }
 
-double Render::GetWidthZoomCoef(){
+double CoordinateConvertor::GetWidthZoomCoef(){
     if(min_max_coord_.max_long - min_max_coord_.min_long != 0){
         return (width_ - 2 * padding_) /
                 (min_max_coord_.max_long - min_max_coord_.min_long);
@@ -72,7 +72,7 @@ double Render::GetWidthZoomCoef(){
     return 0;
 }
 
-double Render::GetHeightZoomCoef(){
+double CoordinateConvertor::GetHeightZoomCoef(){
     if(min_max_coord_.max_lat - min_max_coord_.min_lat != 0){
         return (heigth_ - 2 * padding_) /
                 (min_max_coord_.max_lat - min_max_coord_.min_lat);
@@ -80,10 +80,10 @@ double Render::GetHeightZoomCoef(){
     return 0;
 }
 
-double Render::ConvertLongitudeToX(double stop_longitude){
+double CoordinateConvertor::ConvertLongitudeToX(double stop_longitude){
     return (stop_longitude - min_max_coord_.min_long) * zoom_coef_ + padding_;
 }
 
-double Render::ConvertLatitudeToY(double stop_latitude){
+double CoordinateConvertor::ConvertLatitudeToY(double stop_latitude){
     return (min_max_coord_.max_lat - stop_latitude) * zoom_coef_ + padding_;
 }

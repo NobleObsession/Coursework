@@ -37,16 +37,14 @@ endif()
 enable_testing()
 add_subdirectory(test)
 
-set(SOURCE_MAIN "src/src/Solution.cpp")
-add_executable(Solution ${SOURCE_MAIN})
+add_executable(Solution "src/src/Solution.cpp")
 
-set(JSON_LIB "src/src/json.cpp")
-add_library(json_lib ${JSON_LIB})
+add_library(json_lib "src/src/json.cpp")
 
-set(DATABASE_LIB "src/src/Database.cpp")
-add_library(database_lib ${DATABASE_LIB})
+add_library(database_lib "src/src/Database.cpp")
 
-set(SVG_LIB "src/src/svg_lib.cpp")
-add_library(svg_lib ${SVG_LIB})
+add_library(svg_lib "src/src/svg_lib.cpp")
 
-target_link_libraries(Solution json_lib database_lib)
+add_library(coord_convertor_lib "src/src/coordinate_convertor.cpp")
+
+target_link_libraries(Solution json_lib database_lib coord_convertor_lib)
