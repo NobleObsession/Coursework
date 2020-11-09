@@ -86,11 +86,15 @@ TEST(Render, ZoomCoordinates_AllStopsHaveSameLatitude_LatitudeEqToPadding){
     const StopMap& stops = database.stops_;
 
     MinMaxCoordinates coordinates = FindMinMaxCoordinatesOfStops(stops);
-    const double padding = 70;
+    const double padding = 50;
     RenderSettings settings = {1200, 1200, padding};
     Render render(settings.width, settings.height, settings.padding, coordinates);
+
+    double found_x = render.ConvertLongitudeToX(stops.at("second_stop").GetCoordinates().longitude);
     double found_y = render.ConvertLatitudeToY(stops.at("second_stop").GetCoordinates().latitude);
 
+    const double expected_x = 1150;
+    EXPECT_FLOAT_EQ(expected_x, found_x);
     EXPECT_FLOAT_EQ(padding, found_y);
 }
 
@@ -105,11 +109,14 @@ TEST(Render, ZoomCoordinates_AllStopsHaveSameLongitude_LongitudeEqToPadding){
     const StopMap& stops = database.stops_;
 
     MinMaxCoordinates coordinates = FindMinMaxCoordinatesOfStops(stops);
-    const double padding = 70;
+    const double padding = 50;
     RenderSettings settings = {1200, 1200, padding};
     Render render(settings.width, settings.height, settings.padding, coordinates);
-    double found_x = render.ConvertLongitudeToX(stops.at("second_stop").GetCoordinates().longitude);
+    double found_x = render.ConvertLongitudeToX(stops.at("first_stop").GetCoordinates().longitude);
+    double found_y = render.ConvertLatitudeToY(stops.at("first_stop").GetCoordinates().latitude);
 
+    const double expected_y = 1150;
+    EXPECT_FLOAT_EQ(expected_y, found_y);
     EXPECT_FLOAT_EQ(padding, found_x);
 }
 
