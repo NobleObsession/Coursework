@@ -22,11 +22,6 @@ RenderSettings GetRenderSettings(const std::map<std::string, Json::Node>& main_m
 class Render{
 public:
     Render(double width, double height, double padding, MinMaxCoordinates coord);
-
-    Render& SetWidth(double width);
-    Render& SetHeight(double height);
-    Render& SetPadding(double padding);
-    Render& SetMinMaxCoordinates(const MinMaxCoordinates& coord);
     double ConvertLongitudeToX(double stop_longitude);
     double ConvertLatitudeToY(double stop_latitude);
 private:

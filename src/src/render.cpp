@@ -64,21 +64,6 @@ Render::Render(double width, double height, double padding, MinMaxCoordinates co
     zoom_coef_ = GetFinalZoom(width_zoom, height_zoom);
 }
 
-Render& Render::SetHeight(double height){
-    heigth_ = height;
-    return *this;
-}
-
-Render& Render::SetPadding(double padding){
-    padding_ = padding;
-    return *this;
-}
-
-Render& Render::SetMinMaxCoordinates(const MinMaxCoordinates& coord){
-    min_max_coord_ = coord;
-    return *this;
-}
-
 double Render::GetWidthZoomCoef(){
     if(min_max_coord_.max_long - min_max_coord_.min_long != 0){
         return (width_ - 2 * padding_) /
@@ -102,4 +87,3 @@ double Render::ConvertLongitudeToX(double stop_longitude){
 double Render::ConvertLatitudeToY(double stop_latitude){
     return (min_max_coord_.max_lat - stop_latitude) * zoom_coef_ + padding_;
 }
-

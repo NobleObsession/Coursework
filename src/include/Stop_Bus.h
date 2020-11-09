@@ -26,7 +26,7 @@ struct Coordinates{
 
 class Stop{
 public:
-	Stop(std::string& name, double latitude, double longitude, std::unordered_map<std::string, int> dist_map = {}):
+    Stop(const std::string& name, double latitude, double longitude, std::unordered_map<std::string, int> dist_map = {}):
 		name_(name), latitude_(latitude), longitude_(longitude), dist_to_other(dist_map) {}
 
 	Stop():latitude_(0), longitude_(0){}
