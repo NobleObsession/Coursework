@@ -65,7 +65,7 @@ TEST(Render, ZoomCoordinates_AllStopsAtTheSamePlace_ResultEqToPadding){
     const StopMap& stops = database.stops_;
 
     MinMaxCoordinates coordinates = FindMinMaxCoordinatesOfStops(stops);
-    const double padding = 50;
+    const double padding = 70;
     RenderSettings settings = {1200, 1200, padding};
     Render render(settings.width, settings.height, settings.padding, coordinates);
     double found_x = render.ConvertLongitudeToX(stops.at("first_stop").GetCoordinates().longitude);
@@ -86,7 +86,7 @@ TEST(Render, ZoomCoordinates_AllStopsHaveSameLatitude_LatitudeEqToPadding){
     const StopMap& stops = database.stops_;
 
     MinMaxCoordinates coordinates = FindMinMaxCoordinatesOfStops(stops);
-    const double padding = 50;
+    const double padding = 70;
     RenderSettings settings = {1200, 1200, padding};
     Render render(settings.width, settings.height, settings.padding, coordinates);
     double found_y = render.ConvertLatitudeToY(stops.at("second_stop").GetCoordinates().latitude);
@@ -105,7 +105,7 @@ TEST(Render, ZoomCoordinates_AllStopsHaveSameLongitude_LongitudeEqToPadding){
     const StopMap& stops = database.stops_;
 
     MinMaxCoordinates coordinates = FindMinMaxCoordinatesOfStops(stops);
-    const double padding = 50;
+    const double padding = 70;
     RenderSettings settings = {1200, 1200, padding};
     Render render(settings.width, settings.height, settings.padding, coordinates);
     double found_x = render.ConvertLongitudeToX(stops.at("second_stop").GetCoordinates().longitude);
