@@ -43,8 +43,8 @@ add_library(json_lib "src/src/json.cpp")
 
 add_library(database_lib "src/src/Database.cpp")
 
-add_library(svg_lib "src/src/svg_lib.cpp")
-
 add_library(coord_convertor_lib "src/src/coordinate_convertor.cpp")
 
-target_link_libraries(Solution json_lib database_lib coord_convertor_lib)
+add_library(palette_processor_lib "src/src/palette_processor.cpp")
+
+target_link_libraries(Solution json_lib database_lib coord_convertor_lib palette_processor_lib)
