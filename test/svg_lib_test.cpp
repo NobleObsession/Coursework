@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <sstream>
-#include "../src/src/svg_lib.cpp"
+#include "../src/include/svg_lib.h"
 
 using namespace Svg;
 using namespace std;
@@ -247,4 +247,15 @@ TEST(Svg, Render_Text_SetData){
     EXPECT_EQ(expected_output, actual_output);
 }
 
+TEST(Svg, Render_PolylineWithRgbAFill){
+    Document svg;
+    svg.Add(Polyline{}.SetFillColor(RgbA({255, 255, 255, 0.85})));
+    stringstream sstream;
+    svg.Render(sstream);
+    string actual_output = sstream.str();
+    string expected_output(kDefaultStartTag +
+                           "<polyline fill=\"rgba(255,255,255,0.850000)\" " + kStroke
+                           + kStrokeWidth + "/>" + kDefaultEndTag);
+    EXPECT_EQ(expected_output, actual_output);
+}
 }

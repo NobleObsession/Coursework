@@ -3,39 +3,12 @@
 #include <memory>
 
 #include "../include/DataStorage_with_utilities.h"
-#include "../include/Stop_Bus_Parsers.h"
+#include "../include/Stop_Bus.h"
+#include "../include/Database.h"
 
 using namespace std;
 
-void AddToDatabase::AddStop(const Stop& stop, DataStorage& ds){
-	auto found_stop = ds.stops_.find(stop.GetStopName());
-	if(found_stop != ds.stops_.end()){
-		found_stop->second.SetCoordinates(stop.GetCoordinates());
-		found_stop->second.SetDistances(stop.GetDistances());
-	}else{
-		ds.stops_[stop.GetStopName()] = stop;
-	}
-}
-
-void AddToDatabase::AddBus(const Bus& bus, DataStorage& ds){
-	ds.buses_[bus.GetBusName()] = bus;
-	vector<string>stops = bus.GetStops();
-	for(auto& s:stops){
-		ds.stops_[s].AddBus(bus.GetBusName());
-	}
-}
-
-void AddToDatabase::AddNotExistedStops(const vector<string>& stops, const string& route, DataStorage& ds){
-	for(auto stop:stops){
-		if(ds.stops_.count(stop) == 0){
-			Stop empty_stop({stop, 0, 0});
-			ds.stops_[stop] = empty_stop;
-			ds.stops_[stop].AddBus(route);
-		}
-	}
-}
-
-void FindBus(const string& name, UnordMapNode& output_node, const DataStorage& ds, ComputeLengthNode& len_node){
+void FindBus(const string& name, UnordMapNode& output_node, const Database& ds, ComputeLengthNode& len_node){
 
 	if(ds.buses_.count(name) != 0){
 		output_node.AddPair("stop_count", make_shared<IntNode>(ds.buses_.at(name).NumAllStops()));
@@ -49,7 +22,7 @@ void FindBus(const string& name, UnordMapNode& output_node, const DataStorage& d
 	}
 }
 
-void FindStop(const string& stop, UnordMapNode& output_node, const DataStorage& ds){
+void FindStop(const string& stop, UnordMapNode& output_node, const Database& ds){
 
 	if(ds.stops_.count(stop) != 0){
 		set<string>set_of_buses = ds.stops_.at(stop).GetBuses();
@@ -64,7 +37,7 @@ void FindStop(const string& stop, UnordMapNode& output_node, const DataStorage& 
 }
 
 
-ComputedRouteParams ComputeLengthNode::ComputeRouteLen(const string& bus_name, const DataStorage& ds){
+ComputedRouteParams ComputeLengthNode::ComputeRouteLen(const string& bus_name, const Database& ds){
 	auto found_params = route_cache.find(bus_name);
 	if(found_params != route_cache.end()){
 		return (*found_params).second;
@@ -92,13 +65,13 @@ ComputedRouteParams ComputeLengthNode::ComputeRouteLen(const string& bus_name, c
 	}
 }
 
-double ComputeLengthNode::ComputeLen(const Coord& lhs, const Coord& rhs){
+double ComputeLengthNode::ComputeLen(const RadCoordinates& lhs, const RadCoordinates& rhs){
 	return acos((sin(lhs.lat_rad) * sin(rhs.lat_rad)) +
 				(cos(lhs.lat_rad) * cos(rhs.lat_rad) *
 				cos(abs(lhs.long_rad - rhs.long_rad)))) * earth_rad;
 }
 
-void NumericNamesManager::SetNumericNamesOfStops(const DataStorage& ds){
+void NumericNamesManager::SetNumericNamesOfStops(const Database& ds){
 	size_t counter = 0;
 	for(auto& stop:ds.stops_){
 		stop_name_to_size_t[stop.first] = counter;
@@ -124,7 +97,7 @@ void NumericNamesManager::SetAdditionalVertex(size_t num_vertex, const std::stri
 }
 
 pair<vector<vector<Edge>>, size_t> GetAllEdgesWithWeights (double velocity,
-		const DataStorage& ds, NumericNamesManager& num_names){
+        const Database& ds, NumericNamesManager& num_names){
 	/*This function is intended to return all original edges (without repetitions) for each bus route
 	 * with number of original stops (without repetitions too). To track this, there is class NumericNamesManager,
 	 * where size of stop_name_to_size_t corresponds to number of original stops, whereas

@@ -37,8 +37,14 @@ endif()
 enable_testing()
 add_subdirectory(test)
 
-include_directories(src/include)
+add_executable(Solution "src/src/Solution.cpp")
 
-file(GLOB SOURCES "src/src/*.cpp")
+add_library(json_lib "src/src/json.cpp")
 
-add_executable(Solution ${SOURCES})
+add_library(database_lib "src/src/Database.cpp")
+
+add_library(coord_convertor_lib "src/src/coordinate_convertor.cpp")
+
+add_library(palette_processor_lib "src/src/palette_processor.cpp")
+
+target_link_libraries(Solution json_lib database_lib coord_convertor_lib palette_processor_lib)

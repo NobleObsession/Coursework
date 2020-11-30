@@ -20,6 +20,13 @@ struct Rgb{
     int blue;
 };
 
+struct RgbA{
+    int red;
+    int green;
+    int blue;
+    double alpha;
+};
+
 struct Color{
     Color():color_("none"){}
     Color(const std::string& color):color_(color) {}
@@ -28,6 +35,12 @@ struct Color{
               std::to_string(color.red) + ',' +
               std::to_string(color.green) + ',' +
               std::to_string(color.blue) + ")") {}
+    Color(const RgbA& color):
+        color_("rgba(" +
+              std::to_string(color.red) + ',' +
+              std::to_string(color.green) + ',' +
+              std::to_string(color.blue) + ',' +
+              std::to_string(color.alpha) + ")") {}
 
     std::string color_;
 };

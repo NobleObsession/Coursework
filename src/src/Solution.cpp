@@ -8,35 +8,17 @@
 #include <fstream>
 
 #include "../include/json.h"
-#include "../include/Dijkstra.h"
-#include "../include/Stop_Bus_Parsers.h"
-#include "../include/Cache.h"
+/*#include "../include/Dijkstra.h"*/
+#include "../include/Stop_Bus.h"
+/*#include "../include/Cache.h"
 #include "../include/DataStorage_with_utilities.h"
-#include "../include/output_node.h"
+#include "../include/output_node.h"*/
+#include "../include/Database.h"
 
 
 using namespace std;
-
-void CreateDatabase(const map<string, Json::Node>& main_map, DataStorage& storage){
-
-	AddToDatabase add_to_db;
-
-	for(auto& req: main_map.at("base_requests").AsArray()){
-	    map<string, Json::Node> map_with_requests = req.AsMap();
-		if(map_with_requests.at("type").AsString() == "Stop"){
-
-			Stop s = ParseStop(map_with_requests);
-			add_to_db.AddStop(s, storage);
-		}else if(map_with_requests.at("type").AsString() == "Bus"){
-
-			Bus b = ParseBus(map_with_requests);
-			add_to_db.AddBus(b, storage);
-			add_to_db.AddNotExistedStops(b.GetStops(), b.GetBusName(), storage);
-		}
-	}
-}
-
-shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_map, DataStorage& storage,
+/*
+shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_map, Database& storage,
 		const NumericNamesManager& names_manager, double wait_time, const Graph& initial_graph){
 
 	vector<shared_ptr<Node>> resolved_queries;
@@ -85,12 +67,9 @@ shared_ptr<VectorNode> ProcessStatQueries(const map<string, Json::Node>& main_ma
 
 void PrintQueries(const shared_ptr<VectorNode> node, ostream& out){
 	node->Output(out);
-}
+}*/
 
 int main(){
-
-	DataStorage storage;
-
 	Json::Document doc = Json::Load(cin);
 
 	/*uncomment to run with input file
@@ -99,15 +78,15 @@ int main(){
 	fin.close();*/
 
 	map<string, Json::Node> main_map = doc.GetRoot().AsMap();
-	cout << main_map.size() << endl;
 
 	map<string, Json::Node> settings = main_map["routing_settings"].AsMap();
 
 	const double wait_time = settings["bus_wait_time"].AsDouble();
 	const double velocity = (settings["bus_velocity"].AsDouble() * 1000)/60;
 
+    Database storage;
 	CreateDatabase(main_map, storage);
-
+/*
 	NumericNamesManager num_names_manager;
 	num_names_manager.SetNumericNamesOfStops(storage);
 
@@ -121,7 +100,7 @@ int main(){
 	shared_ptr<VectorNode> resolved_queries = ProcessStatQueries(main_map, storage, num_names_manager, wait_time, initial_graph);
 	PrintQueries(resolved_queries, cout);
 
-	/*uncomment to write output in file
+    uncomment to write output in file
 	ofstream out_file("output.txt");
 	PrintQueries(resolved_queries, out_file);
 	out_file.close();*/

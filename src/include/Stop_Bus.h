@@ -9,10 +9,8 @@
 #include <set>
 #include <utility>
 
-#include "json.h"
-
-struct Coord{
-	Coord(double latitude, double longitude):lat_rad(latitude), long_rad(longitude){
+struct RadCoordinates{
+	RadCoordinates(double latitude, double longitude):lat_rad(latitude), long_rad(longitude){
 		lat_rad = (lat_rad * pi) / 180;
 		long_rad = (long_rad * pi) / 180;
 		}
@@ -21,10 +19,14 @@ struct Coord{
 	const double pi = 3.1415926535;
 };
 
+struct Coordinates{
+    double latitude;
+    double longitude;
+};
 
 class Stop{
 public:
-	Stop(std::string& name, double latitude, double longitude, std::unordered_map<std::string, int> dist_map = {}):
+    Stop(const std::string& name, double latitude, double longitude, std::unordered_map<std::string, int> dist_map = {}):
 		name_(name), latitude_(latitude), longitude_(longitude), dist_to_other(dist_map) {}
 
 	Stop():latitude_(0), longitude_(0){}
@@ -34,13 +36,13 @@ public:
 	}
 	std::set<std::string> GetBuses() const {return buses_;}
 	std::string GetStopName() const {return name_;}
-	Coord GetRadCoordinates() const {return {latitude_, longitude_};}
-	std::pair<double, double> GetCoordinates() const {return std::make_pair(latitude_, longitude_);}
+	RadCoordinates GetRadCoordinates() const {return {latitude_, longitude_};}
+	Coordinates GetCoordinates() const {return {latitude_, longitude_};}
 	std::unordered_map<std::string, int> GetDistances() const{return dist_to_other;}
 
-	void SetCoordinates(std::pair<double, double> coord){
-		latitude_ = coord.first;
-		longitude_ = coord.second;
+	void SetCoordinates(Coordinates coord){
+		latitude_ = coord.latitude;
+		longitude_ = coord.longitude;
 	}
 	void SetDistances(const std::unordered_map<std::string, int>& dist){dist_to_other = dist;}
 
@@ -74,8 +76,3 @@ private:
 	std::vector<std::string>stops_;
 	std::unordered_set<std::string>unique_stops_;
 };
-
-
-Stop ParseStop(std::map<std::string, Json::Node>& my_map);
-Bus ParseBus(std::map<std::string, Json::Node>& my_map);
-
